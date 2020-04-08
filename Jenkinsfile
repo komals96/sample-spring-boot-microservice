@@ -12,7 +12,10 @@ pipeline {
       steps {
         // run Gradle to execute compile and unit testing
         //sh "./gradlew clean build"
-        gradle('clean build')
+        gradle {
+          makeExecutable(true)
+          tasks('clean build')
+        }
       }
     }
   }
