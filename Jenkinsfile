@@ -3,33 +3,19 @@ pipeline {
   agent { label 'master' }
   stages {
     stage('Source') { // Get code
-      //steps {
-      //  // get code from our Git repository
-      //  git 'https://github.com/vinayaka-rs/sample-spring-boot-microservice.git'
-      //}
       steps {
-        scm {
-          git {
-            remote {
-              credentials('github_id')
-              url('https://github.com/vinayaka-rs/sample-spring-boot-microservice.git')
-            }
-            extensions {
-              wipeOutWorkspace()
-            }
-            branch("master")
-          }
-        }
+        // get code from our Git repository
+        git 'https://github.com/vinayaka-rs/sample-spring-boot-microservice.git'
       }
     }
-    stage('Compile') { // Compile and do unit testing
+    stage('Build and Archive') { // Compile and do unit testing
       steps {
         // run Gradle to execute compile and unit testing
-        //sh "./gradlew clean build"
-        gradle {
-          fromRootBuildScriptDir(true)
-          makeExecutable(true)
-          tasks('clean build')
+        sh "./gradlew clean build"
+      }
+      post {
+        success {
+          archiveArtifacts artifacts: 'build/**/**/*', fingerprint: true
         }
       }
     }
