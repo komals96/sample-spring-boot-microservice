@@ -11,6 +11,7 @@ pipeline {
     stage('Build and Archive') { // Compile and do unit testing
       steps {
         // run Gradle to execute compile and unit testing
+        sh "chmod +x gradlew"
         sh "./gradlew clean build"
       }
       post {
