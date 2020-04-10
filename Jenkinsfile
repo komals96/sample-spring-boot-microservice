@@ -7,16 +7,18 @@ pipeline {
       //  // get code from our Git repository
       //  git 'https://github.com/vinayaka-rs/sample-spring-boot-microservice.git'
       //}
-      scm {
-        git {
-          remote {
-            url("https://github.com/vinayaka-rs/sample-spring-boot-microservice.git")
-            credentials("github_id")
+      steps {
+        scm {
+          git {
+            remote {
+              url("https://github.com/vinayaka-rs/sample-spring-boot-microservice.git")
+              credentials("github_id")
+            }
+            extensions {
+              wipeOutWorkspace()
+            }
+            branch("master")
           }
-          extensions {
-            wipeOutWorkspace()
-          }
-          branch("master")
         }
       }
     }
