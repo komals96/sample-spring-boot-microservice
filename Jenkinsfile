@@ -13,6 +13,7 @@ pipeline {
         // run Gradle to execute compile and unit testing
         //sh "./gradlew clean build"
         gradle {
+          fromRootBuildScriptDir(true)
           makeExecutable(true)
           tasks('clean build')
         }
