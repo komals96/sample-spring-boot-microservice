@@ -1,6 +1,9 @@
 // Scripted Pipeline with stages
 pipeline {
   agent { label 'master' }
+  options {
+    buildDiscarder(logRotator(numToKeepStr:'1'))
+  }
   stages {
     stage('Source') { // Get code
       steps {
