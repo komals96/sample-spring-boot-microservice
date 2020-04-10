@@ -3,9 +3,21 @@ pipeline {
   agent { label 'master' }
   stages {
     stage('Source') { // Get code
-      steps {
-        // get code from our Git repository
-        git 'https://github.com/vinayaka-rs/sample-spring-boot-microservice.git'
+      //steps {
+      //  // get code from our Git repository
+      //  git 'https://github.com/vinayaka-rs/sample-spring-boot-microservice.git'
+      //}
+      scm {
+        git {
+          remote {
+            url("https://github.com/vinayaka-rs/sample-spring-boot-microservice.git")
+            credentials("github_id")
+          }
+          extensions {
+            wipeOutWorkspace()
+          }
+          branch("master")
+        }
       }
     }
     stage('Compile') { // Compile and do unit testing
