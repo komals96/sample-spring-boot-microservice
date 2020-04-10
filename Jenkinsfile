@@ -11,9 +11,8 @@ pipeline {
         scm {
           git {
             remote {
-              name('origin')
+              credentials('github_id')
               url('https://github.com/vinayaka-rs/sample-spring-boot-microservice.git')
-              //credentials("github_id")
             }
             extensions {
               wipeOutWorkspace()
