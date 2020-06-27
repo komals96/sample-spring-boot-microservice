@@ -1,0 +1,14 @@
+// Scripted Pipeline with stages
+node ('master') {
+  stage('Source') { // Get code
+    // get code from our Git repository
+    git 'https://github.com/komals96/sample-spring-boot-microservice.git'
+  }
+  stage('Build') { // Build the code
+    // get Gradle HOME value
+    def gradleHome = tool 'Gradle'
+    // run Gradle to build
+    sh "'${gradleHome}/bin/gradle' clean build"
+    archiveArtifacts artifacts: 'build/libs/*.jar'
+  }
+}
